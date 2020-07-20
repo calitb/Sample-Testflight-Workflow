@@ -19,6 +19,10 @@ jobs:
         run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF#refs/*/v})
       - name: Set build version
         run: bundle exec fastlane run increment_version_number version_number:"${{ env.RELEASE_VERSION }}"
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_11.3.app
+      - name: Xcode version
+        run: /usr/bin/xcodebuild -version
       - name: Fastlane Beta CI
         run: bundle exec fastlane beta_ci
         env:
