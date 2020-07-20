@@ -7,6 +7,9 @@ platform :ios do
     match(
       type: "appstore"
     )
+    match(
+      type: "development"
+    )
   end
 
   lane :bump_version do
