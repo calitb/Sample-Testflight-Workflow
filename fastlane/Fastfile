@@ -29,7 +29,11 @@ platform :ios do
     )
     match(type: "development", readonly: true, keychain_name: 'Fastlane_CI', keychain_password: 'CI_Password')
     match(type: "appstore", readonly: true, keychain_name: 'Fastlane_CI', keychain_password: 'CI_Password')
-    build_app(project: "SimpleTest.xcodeproj", scheme: "SimpleTest")
+    build_app(
+      project: "SimpleTest.xcodeproj", 
+      scheme: "SimpleTest",
+      apple_id: "1524240958"
+    )
     upload_to_testflight(skip_waiting_for_build_processing: true, username: "thurber.carlos@gmail.com")
   end
   
