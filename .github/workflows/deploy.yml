@@ -1,0 +1,14 @@
+name: Deploy
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+    - name: Checkout branch
+      uses: actions/checkout@v1
+    - name: Install Fastlane
+      run: bundle install
