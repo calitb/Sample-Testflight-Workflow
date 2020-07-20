@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v1
       - name: Install Fastlane
         run: |
-          bundle update
+          bundle update --bundler
           bundle install
       - name: Set Appstore Connect User
         run: bundle exec fastlane fastlane-credentials add --username thurber.carlos@gmail.com --password ${{ secrets.APPSTORE_PASSWORD }}
