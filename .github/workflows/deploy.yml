@@ -1,9 +1,8 @@
 name: TestFlight
 
 on:
-  push:
-    branches:
-      - master
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -17,6 +16,11 @@ jobs:
         run: bundle exec fastlane ios beta
       - name: Set Appstore Connect User
         run: bundle exec fastlane fastlane-credentials add --username thurber.carlos@gmail.com --password ${{ secrets.APPSTORE_PASSWORD }}
+      - name: Get release version
+        id: get_version
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF#refs/*/})
+      - name: Set build version
+        run: bundle exec fastlane run  increment_version_number version_number:"${{ env.RELEASE_VERSION }}"
       - name: Fastlane Beta CI
         run: bundle exec fastlane beta_ci
         env:

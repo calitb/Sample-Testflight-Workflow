@@ -2,13 +2,6 @@ default_platform(:ios)
 
 platform :ios do
 
-  desc "Commit new certificates and provisioning profiles to Git if necessary. Only an itunesconnect admin can run this lane."
-  lane :update_certificates do
-    match(
-      type: "appstore"
-    )
-  end
-
   lane :bump_version do
     build_number = number_of_commits(all: true)
     increment_build_number(build_number: build_number)
@@ -24,6 +17,7 @@ platform :ios do
       timeout: 3600,
       add_to_search_list: true,
     )
+    match(type: "development", readonly: true, keychain_name: 'Fastlane_CI', keychain_password: 'CI_Password')
     match(type: "appstore", readonly: true, keychain_name: 'Fastlane_CI', keychain_password: 'CI_Password')
     build_app(project: "SimpleTest.xcodeproj", scheme: "SimpleTest")
     upload_to_testflight(skip_waiting_for_build_processing: true, username: "thurber.carlos@gmail.com")
