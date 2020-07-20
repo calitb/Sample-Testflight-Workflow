@@ -13,4 +13,4 @@ jobs:
     - name: Install Fastlane
       run: bundle install
     - name: Upload to Testflight
-     run: bundle exec fastlane ios beta
+      run: bundle exec fastlane ios beta
