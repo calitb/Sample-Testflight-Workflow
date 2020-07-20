@@ -11,7 +11,9 @@ jobs:
       - name: Checkout branch
         uses: actions/checkout@v1
       - name: Install Fastlane
-        run: bundle install
+        run: |
+          gem install bundler
+          bundle install
       - name: Set Appstore Connect User
         run: bundle exec fastlane fastlane-credentials add --username thurber.carlos@gmail.com --password ${{ secrets.APPSTORE_PASSWORD }}
       - name: Set release version
