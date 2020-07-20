@@ -2,6 +2,13 @@ default_platform(:ios)
 
 platform :ios do
 
+  desc "Commit new certificates and provisioning profiles to Git if necessary. Only an itunesconnect admin can run this lane."
+  lane :update_certificates do
+    match(
+      type: "appstore"
+    )
+  end
+
   lane :bump_version do
     build_number = number_of_commits(all: true)
     increment_build_number(build_number: build_number)
