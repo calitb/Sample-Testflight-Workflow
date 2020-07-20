@@ -1,0 +1,4 @@
+app_identifier("com.mindslab.SimpleTest")
+
+itc_team_id("552200") # App Store Connect Team ID
+team_id("W2V774VD96") # Developer Portal Team ID

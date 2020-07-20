@@ -1,0 +1,32 @@
+name: Deploy Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v1
+      - name: Prepare Fastlane
+        run: |
+          bundle update --bundler
+          bundle install
+      - name: Set Appstore Connect User
+        run: bundle exec fastlane fastlane-credentials add --username ${{ secrets.APPLE_USERNAME }} --password ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+      - name: Set release version
+        run: echo ::set-env name=VERSION_NUMBER::$(echo ${GITHUB_REF#refs/*/v})
+      - name: Select Xcode
+        run: sudo xcode-select -switch /Applications/Xcode_11.6.app
+      - name: Xcode version
+        run: /usr/bin/xcodebuild -version
+      - name: Build and Upload to Testflight
+        run: bundle exec fastlane release_ci
+        env:
+          MATCH_PASSWORD: ${{ secrets.KEYSTORE_PASSPHRASE }}
+          APPLE_USERNAME: ${{ secrets.APPLE_USERNAME }}
+          FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          APP_APPLE_ID: ${{ secrets.APP_APPLE_ID }}
+          GIT_CERT_HTTPS_URL: ${{ secrets.GIT_CERT_HTTPS_URL }}
