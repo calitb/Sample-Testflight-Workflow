@@ -15,11 +15,10 @@ jobs:
         run: bundle install
       - name: Upload to Testflight
         run: bundle exec fastlane ios beta
-
-    - name: Set Appstore Connect User
-      run: bundle exec fastlane fastlane-credentials add --username thurber.carlos@gmail.com --password ${{ secrets.APPSTORE_PASSWORD }}
-    - name: Fastlane Beta CI
-      run: bundle exec fastlane beta_ci
-      env:
-        MATCH_PASSWORD: ${{ secrets.KEYSTORE_PASSPHRASE }}
-        FASTLANE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
+      - name: Set Appstore Connect User
+        run: bundle exec fastlane fastlane-credentials add --username thurber.carlos@gmail.com --password ${{ secrets.APPSTORE_PASSWORD }}
+      - name: Fastlane Beta CI
+        run: bundle exec fastlane beta_ci
+        env:
+          MATCH_PASSWORD: ${{ secrets.KEYSTORE_PASSPHRASE }}
+          FASTLANE_PASSWORD: ${{ secrets.APPSTORE_PASSWORD }}
