@@ -1,4 +1,0 @@
-git_url("https://github.com/calitb/certs.git")
-storage_mode("git")
-
-username("thurber.carlos@gmail.com")  # Your Apple Developer Portal username

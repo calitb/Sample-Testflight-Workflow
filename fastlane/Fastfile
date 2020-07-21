@@ -25,19 +25,23 @@ platform :ios do
       default_keychain: true,
       unlock: true,
       timeout: 3600,
-      add_to_search_list: true,
+      add_to_search_list: true
     )
     match(
       type: "development", 
       readonly: true, 
       keychain_name: 'Fastlane_CI',
-      keychain_password: 'CI_Password'
+      keychain_password: 'CI_Password',
+      username: ENV["APPLE_USERNAME"],
+      git_url: ENV["GIT_CERT_HTTPS_URL"]
     )
     match(
       type: "appstore", 
       readonly: true, 
       keychain_name: 'Fastlane_CI', 
-      keychain_password: 'CI_Password'
+      keychain_password: 'CI_Password',
+      username: ENV["APPLE_USERNAME"],
+      git_url: ENV["GIT_CERT_HTTPS_URL"]
     )
     build_app(
       project: "SimpleTest.xcodeproj", 
@@ -45,8 +49,8 @@ platform :ios do
     )
     upload_to_testflight(
       skip_waiting_for_build_processing: true, 
-      username: "thurber.carlos@gmail.com",
-      apple_id: "1524240958"
+      apple_id: ENV["APP_APPLE_ID"],
+      username: ENV["APPLE_USERNAME"]
     )
   end
   

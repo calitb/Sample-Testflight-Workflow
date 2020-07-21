@@ -10,12 +10,12 @@ jobs:
     steps:
       - name: Checkout branch
         uses: actions/checkout@v1
-      - name: Install Fastlane
+      - name: Prepare Fastlane
         run: |
           bundle update --bundler
           bundle install
       - name: Set Appstore Connect User
-        run: bundle exec fastlane fastlane-credentials add --username thurber.carlos@gmail.com --password ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+        run: bundle exec fastlane fastlane-credentials add --username ${{ secrets.APPLE_USERNAME }} --password ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
       - name: Set release version
         run: echo ::set-env name=VERSION_NUMBER::$(echo ${GITHUB_REF#refs/*/v})
       - name: Select Xcode
@@ -26,4 +26,7 @@ jobs:
         run: bundle exec fastlane beta_ci
         env:
           MATCH_PASSWORD: ${{ secrets.KEYSTORE_PASSPHRASE }}
+          APPLE_USERNAME: ${{ secrets.APPLE_USERNAME }}
           FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD: ${{ secrets.FASTLANE_APPLE_APPLICATION_SPECIFIC_PASSWORD }}
+          APP_APPLE_ID: ${{ secrets.APP_APPLE_ID }}
+          GIT_CERT_HTTPS_URL: ${{ secrets.GIT_CERT_HTTPS_URL }}

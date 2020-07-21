@@ -1,8 +1,4 @@
-app_identifier("com.mindslab.SimpleTest") # The bundle identifier of your app
-apple_id("thurber.carlos@gmail.com") # Your Apple email address
+app_identifier("com.mindslab.SimpleTest")
 
 itc_team_id("552200") # App Store Connect Team ID
 team_id("W2V774VD96") # Developer Portal Team ID
-
-# For more information about the Appfile, see:
-#     https://docs.fastlane.tools/advanced/#appfile
